@@ -1,7 +1,7 @@
 # Intensivo do Next.js e React.js
 
 ### Padrão Monolito
-<img src="assets/p-monolito.png">
+<img src="public/assets/p-monolito.png">
 
 Problemas do padrão Monolito:
 - Over fetching - Numero de informações captadas
@@ -11,7 +11,7 @@ Problemas do padrão Monolito:
 
 ### Padrão Backend for Front-end
 
-<img src="assets/backend-for-frontend.png">
+<img src="public/assets/backend-for-frontend.png">
 
 
 #### Single page Application - 2008 - Knockout.js | Angular.js VS Server Side Rendering - Next.js
@@ -22,7 +22,7 @@ Uma Single Page Application é um tipo de aplicação web que carrega uma única
 #### O Que É SSR?
 No Server-Side Rendering, as páginas web são totalmente geradas no servidor antes de serem enviadas para o cliente.
 
-<img src="assets/SPA_SSR.png">
+<img src="public/assets/SPA_SSR.png">
 
 | Característica                | Single Page Applications (SPAs)                                   | Server-Side Rendering (SSR)                                  |
 |-------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------|
@@ -41,3 +41,42 @@ No Server-Side Rendering, as páginas web são totalmente geradas no servidor an
 | **Dependência de JavaScript** | Alta, a aplicação depende fortemente de JavaScript                | Baixa a moderada, já que o HTML é pré-renderizado no servidor |
 | **Experiência Offline**       | Suportado através de PWA, caches e outras tecnologias             | Limitado, depende do cache do navegador e outras tecnologias server-side |
 | **Métricas e Monitoramento**  | Complexo, necessita de ferramentas para capturar eventos do frontend | Mais direto, a maior parte das métricas é capturada no backend |
+
+
+
+Installar criar projeto já com typescript
+```bash
+npx create-next-app --typescript
+```
+
+Instalar express
+```bash
+npm install express
+```
+
+Criar comando para rodar API - package.json
+
+```package.json
+"scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "run-api": "node node-api/api.js"
+  },
+```
+
+Iniciar API
+```bash
+npm run run-api
+```
+
+//stale while revalidate
+```javascript
+const response = await fetch('http://localhost:8000/events', {
+    cache: "no-store", // Sem cache nenhum
+    next: {
+      revalidate: 10 // segundos
+    }
+  })
+```
