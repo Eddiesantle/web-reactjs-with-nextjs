@@ -2,11 +2,30 @@
 
 ## Sistema de Vendas de Ingressos Utilizando Next.js e React.js
 
+
+## Descrição do Projeto
+
+Este projeto é uma interface de frontend para um sistema de vendas de ingressos desenvolvido com React.js e Next.js. Ele permite aos usuários pesquisar eventos, reservar assentos e realizar o pagamento dos ingressos de forma eficiente e segura.
+
+## Funcionalidades Principais
+- Pesquisa de Eventos: Permite aos usuários buscar eventos por categoria, data e localização.
+- Visualização de Assentos: Exibe um mapa de assentos interativo onde os usuários podem selecionar seus lugares.
+- Processo de Checkout: Facilita o pagamento seguro dos ingressos com suporte para múltiplos métodos de pagamento.
+- Histórico de Compras: Permite aos usuários visualizar seu histórico de compras e status das reservas.
+- Autenticação: Suporte para login e registro de usuários.
+- Suporte a SEO: Otimizado para motores de busca, garantindo melhor visibilidade.
+
+## Tecnologias Utilizadas
+- React.js: Biblioteca JavaScript para construção de interfaces de usuário.
+- Next.js: Framework React para renderização no servidor e geração de sites estáticos.
+- TypeScript: Superset de JavaScript que adiciona tipagem estática opcional.
+- Styled-Components: Biblioteca para estilos em componentes React.
+- Axios: Cliente HTTP para realizar requisições a APIs.
+- Express: Framework Node.js para criação de APIs e middleware.
+
 ## Pré-requisitos
-- Node.js
-- Docker
-- MySQL
-- Prisma
+- Node.js: Versão 14.x ou superior
+- NPM ou Yarn: Gerenciador de pacotes
 
 ## Instalação
 
@@ -28,8 +47,24 @@ npm run run-api
 npm run dev
 ```
 
+## Detalhes das Funcionalidades
+### Pesquisa de Eventos
+Os usuários podem buscar eventos usando o campo de busca na página inicial. A pesquisa pode ser refinada por categorias, datas e locais.
+
+**Visualização de Assentos**
+A página de detalhes do evento permite que os usuários vejam um mapa de assentos interativo. Os assentos podem ser selecionados e reservados diretamente.
+
+**Processo de Checkout**
+Após selecionar os assentos, os usuários são redirecionados para a página de checkout onde podem revisar suas escolhas e realizar o pagamento.
+
+**Histórico de Compras**
+A seção de perfil de usuário permite visualizar o histórico de compras e o status das reservas.
+
+**Autenticação**
+Suporte para login e registro utilizando tokens JWT para garantir a segurança das transações.
 
 ### Padrão Monolito
+
 <img src="public/assets/p-monolito.png">
 
 ### Descrição
@@ -138,11 +173,21 @@ revalidateTag
 
 ### Screenshots
 
-Página Inicial
+- Página Inicial
 <img src="public/assets/home-page.png" alt="Página Inicial" width="600">
-Reservar Assentos
+
+- Reservar Assentos
 <img src="public/assets/page-assentos.png" alt="Página de Reservar Assentos" width="600">
-Checkout
+
+- Checkout
 <img src="public/assets/page-checkout.png" alt="Página de Checkout" width="600">
 
+### Contribuições
 
+Contribuições são bem-vindas! Para contribuir com o projeto, siga os passos abaixo:
+
+1. Fork o repositório.
+2. Crie uma branch para suas alterações (git checkout -b feature/nova-funcionalidade).
+3. Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
+4. Envie para o branch (git push origin feature/nova-funcionalidade).
+5. Abra um Pull Request.
