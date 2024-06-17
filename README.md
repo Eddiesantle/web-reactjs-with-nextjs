@@ -1,17 +1,52 @@
 # Intensivo do Next.js e React.js
 
+## Sistema de Vendas de Ingressos Utilizando Next.js e React.js
+
+## Pré-requisitos
+- Node.js
+- Docker
+- MySQL
+- Prisma
+
+## Instalação
+
+1. Clone o repositório:
+```bash
+git https://github.com/Eddiesantle/web-reactjs-with-nextjs.git
+cd web-reactjs-with-nextjs
+```
+2. Instale as dependências:
+```bash
+npm install
+```
+3. Execute API:
+```bash
+npm run run-api
+```
+4. Execute Aplicação:
+```bash
+npm run dev
+```
+
+
 ### Padrão Monolito
 <img src="public/assets/p-monolito.png">
 
-Problemas do padrão Monolito:
-- Over fetching - Numero de informações captadas
-- Over requesting - Número de requisições
-- Latencia de rede
-- Segurança nos dados
+### Descrição
+No padrão monolito, todas as funcionalidades de uma aplicação estão agrupadas em uma única unidade. Embora simples, este padrão pode enfrentar vários desafios à medida que a aplicação cresce.
+
+### Problemas do padrão Monolito
+- **Over fetching:** Captação excessiva de informações.
+- **Over requesting:** Excesso de requisições.
+- **Latência de rede:** Tempo de resposta maior devido a múltiplas requisições.
+- **Segurança nos dados:** Riscos de exposição de dados sensíveis.
 
 ### Padrão Backend for Front-end
 
 <img src="public/assets/backend-for-frontend.png">
+
+### Descrição
+O padrão Backend for Front-end (BFF) introduz uma camada intermediária entre o cliente e os serviços backend, otimizando a comunicação e a segurança.
 
 
 #### Single page Application - 2008 - Knockout.js | Angular.js VS Server Side Rendering - Next.js
@@ -42,9 +77,12 @@ No Server-Side Rendering, as páginas web são totalmente geradas no servidor an
 | **Experiência Offline**       | Suportado através de PWA, caches e outras tecnologias             | Limitado, depende do cache do navegador e outras tecnologias server-side |
 | **Métricas e Monitoramento**  | Complexo, necessita de ferramentas para capturar eventos do frontend | Mais direto, a maior parte das métricas é capturada no backend |
 
+## Criando um Projeto Next.js com TypeScript Pratica e implementação
+
+Para criar um projeto Next.js já configurado com TypeScript, siga os passos abaixo:
 
 
-Installar criar projeto já com typescript
+### Instalação
 ```bash
 npx create-next-app --typescript
 ```
@@ -54,7 +92,8 @@ Instalar express
 npm install express
 ```
 
-Criar comando para rodar API - package.json
+### Comandos de Execução
+No arquivo package.json, adicione os seguintes scripts para gerenciar a execução da API e da aplicação Next.js:
 
 ```package.json
 "scripts": {
@@ -66,10 +105,14 @@ Criar comando para rodar API - package.json
   },
 ```
 
-Iniciar API
+Para iniciar a API, execute:
 ```bash
 npm run run-api
 ```
+
+### Práticas de Cache
+
+Para utilizar o cache com validação em revalidação, use o seguinte exemplo:
 
 //stale while revalidate
 ```javascript
@@ -80,3 +123,26 @@ const response = await fetch('http://localhost:8000/events', {
     }
   })
 ```
+
+### Componentes do Next.js
+
+- Server Components
+    - Os componentes do servidor podem ser assíncronos e não possuem interatividade no cliente.
+- Client Components
+    - Componentes no cliente são utilizados para interatividade e dependem de JavaScript.
+
+//cache fosse atualizado baseado em quando houvesse novas vendas de ingressos,
+//ou os dados dos eventos foram alterados
+
+revalidateTag
+
+### Screenshots
+
+Página Inicial
+<img src="public/assets/home-page.png" alt="Página Inicial" width="600">
+Reservar Assentos
+<img src="public/assets/page-assentos.png" alt="Página de Reservar Assentos" width="600">
+Checkout
+<img src="public/assets/page-checkout.png" alt="Página de Checkout" width="600">
+
+
