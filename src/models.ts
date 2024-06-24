@@ -1,23 +1,16 @@
 export type EventModel = {
-    id: number
-    name: string
-    date: string
-    image_url: string,
-    created_at: string,
-    available_spots: number
-    price: number
-}
-
-
-
-export enum SpotStatus {
-    available = "available",
-    sold = "sold",
-}
+    id: string;
+    name: string;
+    organization: string;
+    date: string;
+    price: number;
+    rating: string;
+    image_url: string;
+    location: string;
+};
 
 export type SpotModel = {
-    id: number;
+    id: string;
     name: string;
-    status: SpotStatus;
-    event_id: number;
+    status: string;
 };

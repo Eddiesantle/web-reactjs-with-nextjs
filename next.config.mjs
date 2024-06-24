@@ -4,10 +4,15 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'img.freepik.com',
+                hostname: 'images.unsplash.com',
             },
         ],
     },
+    experimental: {
+        serverActions: {
+            allowedOrigins: ['localhost:8000']
+        }
+    }
 };
 
 export default nextConfig;

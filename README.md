@@ -92,7 +92,7 @@ Uma Single Page Application é um tipo de aplicação web que carrega uma única
 #### O Que É SSR?
 No Server-Side Rendering, as páginas web são totalmente geradas no servidor antes de serem enviadas para o cliente.
 
-<img src="public/assets/SPA_SSR.png">
+<img src="public/assets/SPA_SSR.png" style="background-color:#fff">
 
 | Característica                | Single Page Applications (SPAs)                                   | Server-Side Rendering (SSR)                                  |
 |-------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------|

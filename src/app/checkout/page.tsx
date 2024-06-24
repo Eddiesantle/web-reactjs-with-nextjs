@@ -1,59 +1,113 @@
 import { cookies } from "next/headers";
+import { Title } from "../../components/Title";
 import { redirect } from "next/navigation";
+import { EventModel } from "../../models";
+import { CheckoutForm } from "./CheckoutForm";
 
-export async function checkoutAction(formData: FormData) {
-    "use server";
-    console.log("checkoutAction");
-    const cookieStore = cookies();
-    const reservedSpotRaw = cookieStore.get("spots")?.value;
-    const reservedSpots = reservedSpotRaw ? JSON.parse(reservedSpotRaw) : [];
-
-    if (reservedSpots.length == 0) {
-        return { error: "Selecione ao menos um assento." };
-    }
-
-    const eventId = cookieStore.get("eventId")?.value;
-    await fetch(`http://localhost:8000/events/${eventId}/reserve`, {
-        method: "POST",
-        body: JSON.stringify({
-            spots: reservedSpots,
-        }),
+export async function getEvent(eventId: string): Promise<EventModel> {
+    const response = await fetch(`${process.env.GOLANG_API_URL}/events/${eventId}`, {
         headers: {
-            "Content-Type": "application/json",
+            "apikey": process.env.GOLANG_API_TOKEN as string
         },
+        cache: "no-store",
+        next: {
+            tags: [`events/${eventId}`],
+        }
     });
 
-    cookieStore.set("spots", "");
-    cookieStore.set("eventId", "");
-    redirect("/");
+    return response.json();
 }
 
-export async function CheckoutPage() {
+export default async function CheckoutPage() {
     const cookiesStore = cookies();
-    const reservedSpotRaw = cookiesStore.get("spots")?.value;
-    const reservedSpots = reservedSpotRaw ? JSON.parse(reservedSpotRaw) : [];
-
+    const eventId = cookiesStore.get("eventId")?.value;
+    if (!eventId) {
+        return redirect("/");
+    }
+    const event = await getEvent(eventId);
+    const selectedSpots = JSON.parse(cookiesStore.get("spots")?.value || "[]");
+    let totalPrice = selectedSpots.length * event.price;
+    const ticketKind = cookiesStore.get("ticketKind")?.value;
+    if (ticketKind === "half") {
+        totalPrice = totalPrice / 2;
+    }
+    const formattedTotalPrice = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(totalPrice);
     return (
-        <form action={checkoutAction}>
-            <div className="container mx-auto py-8 px-4">
-                <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div className="p-4">
-                        <h2 className="text-xl text-black font-bold">Resumo do pedido</h2>
-                        <p className="text-gray-700 mt-2">
-                            Assentos selecionados: {reservedSpots.join(", ")}
-                        </p>
-                        <p className="text-gray-700 mt-2">Total: R$ 100,00</p>
-                        <p className="text-gray-700 mt-2">
-                            <button type="submit" className="bg-black hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
-                                Confirmar compra
-                            </button>
-                        </p>
-                    </div>
-                </div>
+        <main className="mt-10 flex flex-wrap justify-center md:justify-between">
+            <div className="mb-4 flex max-h-[250px] w-full max-w-[478px] flex-col gap-y-6 rounded-2xl bg-secondary p-4">
+                <Title>Resumo da compra</Title>
+                <p className="font-semibold">
+                    {event.name}
+                    <br />
+                    {event.location}
+                    <br />
+                    {new Date(event.date).toLocaleDateString("pt-BR", {
+                        weekday: "long",
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    })}
+                </p>
+                <p className="font-semibold text-white">{formattedTotalPrice}</p>
             </div>
-        </form>
+            <div className="w-full max-w-[650px] rounded-2xl bg-secondary p-4">
+                <Title>Informações de pagamento</Title>
+                <CheckoutForm className="mt-6 flex flex-col gap-y-3">
+                    <div className="flex flex-col">
+                        <label htmlFor="titular">E-mail</label>
+                        <input
+                            type="email"
+                            name="email"
+                            className="mt-2 border-solid rounded p-2 h-10 bg-input"
+                            defaultValue={"test@test.com"}
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="titular">Nome no cartão</label>
+                        <input
+                            type="text"
+                            name="card_name"
+                            className="mt-2 border-solid rounded p-2 h-10 bg-input"
+                            defaultValue={"Teste Teste"}
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="cc">Numero do cartão</label>
+                        <input
+                            type="card_number"
+                            name="cc"
+                            className="mt-2 border-solid rounded p-2 h-10 bg-input"
+                            defaultValue={"4111111111111111"}
+                        />
+                    </div>
+                    <div className="flex flex-wrap sm:justify-between">
+                        <div className="flex w-full flex-col md:w-auto">
+                            <label htmlFor="expire">Vencimento</label>
+                            <input
+                                type="text"
+                                name="expire_date"
+                                className="mt-2 sm:w-[240px] border-solid rounded p-2 h-10 bg-input"
+                                defaultValue={"12/2024"}
+                            />
+                        </div>
+                        <div className="flex w-full flex-col md:w-auto">
+                            <label htmlFor="cvv">CVV</label>
+                            <input
+                                type="text"
+                                name="cvv"
+                                className="mt-2 sm:w-[240px] border-solid rounded p-2 h-10 bg-input"
+                                defaultValue={"123"}
+                            />
+                        </div>
+                    </div>
+                    <button className="rounded-lg bg-btn-primary py-4 px-4 text-sm font-semibold uppercase text-btn-primary">
+                        Finalizar pagamento
+                    </button>
+                </CheckoutForm>
+            </div>
+        </main>
     );
 }
-
-export default CheckoutPage;
