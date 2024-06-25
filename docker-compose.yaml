@@ -1,0 +1,22 @@
+services:
+
+  nextjs:
+    build: .
+    ports:
+      - 3002:3000
+    volumes:
+      - .:/home/node/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      # C:\Windows\system32\drivers\etc\hosts (bloco de notas em modo administrador)
+
+      # 127.0.0.1 host.docker.internal
+
+      ## Linux ou Mac (Docker Desktop)
+
+      # /etc/hosts
+
+      # 127.0.0.1 host.docker.internal
+
+      # host.docker.internal:8000/partner1
+      # host.docker.internal:8000/partner2
