@@ -34,10 +34,18 @@ Este projeto é uma interface de frontend para um sistema de vendas de ingressos
 git https://github.com/Eddiesantle/web-reactjs-with-nextjs.git
 cd web-reactjs-with-nextjs
 ```
-2. Instale as dependências:
+
+2. Suba o container do APP:
 ```bash
-npm install
+docker compose up -d
 ```
+
+3. Execute o container da aplicação 'app-nestjs' interagir diretamente com o ambiente interno de um contêiner:
+
+```bash
+docker compose exec web-nextjs bash
+```
+
 3. Execute API:
 ```bash
 npm run run-api

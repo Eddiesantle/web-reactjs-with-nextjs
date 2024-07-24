@@ -1,6 +1,6 @@
 services:
 
-  nextjs:
+  web-nextjs:
     build: .
     ports:
       - 3002:3000
@@ -18,5 +18,3 @@ services:
 
       # 127.0.0.1 host.docker.internal
 
-      # host.docker.internal:8000/partner1
-      # host.docker.internal:8000/partner2

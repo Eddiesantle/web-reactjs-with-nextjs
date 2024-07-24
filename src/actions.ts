@@ -47,6 +47,14 @@ export async function checkoutAction(prevState: any, {
   const spots = JSON.parse(cookieStore.get("spots")?.value || "[]");
   const ticketKind = cookieStore.get("ticketKind")?.value || "full";
 
+  console.log('checkoutAction -> body ', {
+    event_id: eventId,
+    card_hash: cardHash,
+    ticket_kind: ticketKind,
+    spots,
+    email,
+  })
+
   const response = await fetch(`${process.env.GOLANG_API_URL}/checkout`, {
     method: "POST",
     body: JSON.stringify({

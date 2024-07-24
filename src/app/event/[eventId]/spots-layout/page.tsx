@@ -35,7 +35,6 @@ export default async function SpotsLayoutPage({
 }) {
     const { event, spots } = await getSpots(params.eventId);
 
-
     //[a, a, a, b, b,  c, d]
     const rowLetters = spots.map((spot) => spot.name[0]);
 
@@ -84,7 +83,7 @@ export default async function SpotsLayoutPage({
     return (
         <main className="mt-10">
             <div className="flex w-[1176px] max-w-full flex-row flex-wrap justify-center gap-x-8 rounded-2xl bg-secondary p-4 md:justify-normal">
-                <EventImage src={event.image_url} alt={event.name} />
+                {/* <EventImage src={event.image_url} alt={event.name} /> !! IMAGEM ESTA QUEBRANDO APLICAÇÃO */}
                 <div className="flex max-w-full flex-col gap-y-6">
                     <div className="flex flex-col gap-y-2 ">
                         <p className="text-sm font-semibold uppercase text-subtitle">
@@ -183,4 +182,6 @@ export default async function SpotsLayoutPage({
             </div>
         </main>
     );
+
+
 }
